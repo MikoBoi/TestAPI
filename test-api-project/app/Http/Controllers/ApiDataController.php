@@ -28,18 +28,20 @@ class ApiDataController extends Controller
                 'dateFrom' => now()->subMonth()->toDateString(),
                 'dateTo'   => now()->toDateString(),
                 'page'     => 1,
-                'limit'    => 500,
+                'limit'    => 100,
                 'key'      => $this->apiKey,
             ]);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $data = $response->json()['data'];
 
-                Order::Create(
-                    [
-                        'response' => json_encode($data),
-                    ]
-                );
+                foreach ($data as $item) {
+                    Order::Create(
+                        [
+                            'response' => json_encode($item),
+                        ]
+                    );
+                }
 
                 return response()->json(['message' => 'Orders fetched successfully!']);
             }
@@ -58,18 +60,20 @@ class ApiDataController extends Controller
                 'dateFrom' => now()->subMonth()->toDateString(),
                 'dateTo'   => now()->toDateString(),
                 'page'     => 1,
-                'limit'    => 500,
+                'limit'    => 100,
                 'key'      => $this->apiKey,
             ]);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $data = $response->json()['data'];
 
-                Sale::Create(
-                    [
-                        'response' => json_encode($data),
-                    ]
-                );
+                foreach ($data as $item) {
+                    Sale::Create(
+                        [
+                            'response' => json_encode($item),
+                        ]
+                    );
+                }
 
                 return response()->json(['message' => 'Sales fetched successfully!']);
             }
@@ -87,18 +91,20 @@ class ApiDataController extends Controller
             $response = Http::get("{$this->apiHost}/api/stocks", [
                 'dateFrom' => now()->toDateString(),
                 'page'     => 1,
-                'limit'    => 500,
+                'limit'    => 100,
                 'key'      => $this->apiKey,
             ]);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $data = $response->json()['data'];
 
-                Stock::Create(
-                    [
-                        'response' => json_encode($data),
-                    ]
-                );
+                foreach ($data as $item) {
+                    Stock::Create(
+                        [
+                            'response' => json_encode($item),
+                        ]
+                    );
+                }
 
                 return response()->json(['message' => 'Stocks fetched successfully!']);
             }
@@ -117,18 +123,20 @@ class ApiDataController extends Controller
                 'dateFrom' => now()->subMonth()->toDateString(),
                 'dateTo'   => now()->toDateString(),
                 'page'     => 1,
-                'limit'    => 500,
+                'limit'    => 100,
                 'key'      => $this->apiKey,
             ]);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $data = $response->json()['data'];
 
-                Income::Create(
-                    [
-                        'response' => json_encode($data),
-                    ]
-                );
+                foreach ($data as $item) {
+                    Income::Create(
+                        [
+                            'response' => json_encode($item),
+                        ]
+                    );
+                }
 
                 return response()->json(['message' => 'Incomes fetched successfully!']);
             }
